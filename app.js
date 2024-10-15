@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 //Routes
 const authRoutes = require('./routes/authRoutes');
-const userRoute = require('./routes/userRoute');
+const userRoute = require('./routes/userRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const studentRoutes = require('./routes/studentRoutes');
