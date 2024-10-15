@@ -21,17 +21,17 @@ const register = async (req, res) => {
   };
 
 const login = async (req, res) => {
-    const { username, passwordx } = req.body;
+    const { username, password } = req.body;
 
     try {
         const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
 
         if (rows.length === 0) {
-            return res.status(400).json({ error: 'Invalid Useranme' });
+            return res.status(400).json({ error: 'Invalid Username' });
         }
 
         const user = rows[0];
-        const isMatch = await bcrypt.compare(passwordx, user.passwordx);
+        const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(400).json({ error: 'Invalid Password' });
