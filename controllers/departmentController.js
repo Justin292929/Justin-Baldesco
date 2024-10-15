@@ -4,6 +4,7 @@ const getAllDepartment = async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT dept_id, dept_code, dept_name, created_at, updated_at FROM Department'); 
         res.status(200).json(rows);
+        
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -11,6 +12,7 @@ const getAllDepartment = async (req, res) => {
 
 const getDeptByid = async (req, res) => {
     const { dept_id } = req.params;
+   
     try {
         const [rows] = await pool.query('SELECT dept_id, dept_code, dept_name, created_at, updated_at FROM Department WHERE dept_id = ?', [dept_id]);
 
@@ -28,7 +30,7 @@ const createDepartment = async (req, res) => {
     const { dept_code, dept_name } = req.body;
     try {
         const [result] = await pool.query('INSERT INTO Department (dept_code, dept_name) VALUES (?, ?)', [dept_code, dept_name]); 
-        res.status(201).json({ insertId: result.insertId, dept_code, dept_name }); 
+        res.status(201).json({ dept_id: result.insertId, dept_code, dept_name }); 
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
