@@ -3,14 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { fullname, username, passwordx} = req.body;
+    const { fullname, username, password} = req.body;
   
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
   
   
       const [rows] = await pool.query(
-        'INSERT INTO users (fullname, username, passwordx) VALUES (?, ?, ?)',
+        'INSERT INTO users (fullname, username, password) VALUES (?, ?, ?)',
         [fullname, username, hashedPassword]
       );
   
