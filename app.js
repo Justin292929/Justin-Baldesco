@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 //Routes
 const authRoutes = require('./routes/authRoutes');
-const userRoute = require('./routes/userRoute');
+const userRoutes = require('./routes/userRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const studentRoutes = require('./routes/studentRoutes');
@@ -21,7 +21,7 @@ app.get ('/', function(req, res){
 });
 
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoute);
+app.use('/api/user', userRoutes);
 app.use('/api/dept', departmentRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/student', studentRoutes);
