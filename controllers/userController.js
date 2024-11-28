@@ -2,9 +2,9 @@ const pool = require('../config/database');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const getAllUsers = async (req, res) => {
+const getAllUser = async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM users');
+    const [rows] = await pool.query('SELECT user_id, fullname, username, created_at, updated_at FROM user');
     res.json(rows);
 
   } catch (err) {
@@ -37,7 +37,7 @@ const createUser = async (req, res) => {
   
     try {
       const hashedPassword = await bcrypt.hash(passwordx, 10);
-      const [result] = await pool.query('INSERT INTO users (fullname, username, passwordx) VALUES (?, ?, ?)', [fullname, username, hashedPassword]);
+      const [result] = await pool.query('INSERT INTO user (fullname, username, passwordx) VALUES (?, ?, ?)', [fullname, username, hashedPassword]);
       res.status(201).json({ id: result.insertId, fullname, username, passwordx });
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -58,7 +58,7 @@ const createUser = async (req, res) => {
       
     try {
       const hashedPassword = await bcrypt.hash(passwordx, 10);
-      const [result] = await pool.query('UPDATE users SET fullname = ?, username = ?, passwordx = ? WHERE user_id = ?', [fullname, username, hashedPassword, id]);
+      const [result] = await pool.query('UPDATE user SET fullname = ?, username = ?, passwordx = ? WHERE user_id = ?', [fullname, username, hashedPassword, id]);
   
       if (result.affectedRows === 0) {
         return res.status(404).json({ error: 'Can not update, User can not be found' });
@@ -91,6 +91,6 @@ const createUser = async (req, res) => {
     }
   };
   
-  module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser };
+  module.exports = { getAllUser, getUserById, createUser, updateUser, deleteUser };
 
   
